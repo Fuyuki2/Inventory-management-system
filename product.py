@@ -1,3 +1,9 @@
+import json
+import csv
+
+stock = []
+
+
 def register(stock):
     product_id = int(input("Enter the product ID: "))
     for product in stock:
@@ -75,3 +81,58 @@ def remove_product(stock):
 
     if not found:
         print("Product not found!")
+
+
+def export_to_json(stock):
+    from datetime import datetime
+
+    timestamp = datetime.now().strftime("%Y%m%d")
+    filename = f"stock_export_{timestamp}.json"
+
+    with open(filename, "w") as file:
+        json.dump(stock, file, indent=4)
+
+
+def export_to_csv(stock):
+    from datetime import datetime
+
+    timestamp = datetime.now().strftime("%Y%m%d")
+    filename = f"stock_export_{timestamp}.csv"
+
+    with open(filename, "w", newline="") as file:
+        writer = csv.writer(file)
+        writer.writerow(["product_id", "name", "quantity", "category"])
+
+        for product in stock:
+            writer.writerow(
+                [
+                    product["product_id"],
+                    product["name"],
+                    product["quantity"],
+                    product["category"],
+                ]
+            )
+
+
+def export_stock(stock):
+    while True:
+        print(
+            """
+        1. Export to JSON
+        2. Export to CSV
+        0. Exit
+        """
+        )
+        option = input("Choose an option: ")
+        if option == "1":
+            export_to_json(stock)
+            print("Stock exported to JSON successfully!")
+            break
+        elif option == "2":
+            export_to_csv(stock)
+            print("Stock exported to CSV successfully!")
+            break
+        elif option == "0":
+            break
+        else:
+            print("Invalid option! Please try again.")

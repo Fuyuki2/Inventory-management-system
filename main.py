@@ -1,7 +1,5 @@
 from product import *
 
-stock = []
-
 while True:
     print(
         """
@@ -12,6 +10,7 @@ Menu
 4. Search Product
 5. Remove Product
 6. Update Product
+7. Export Stock
 
 0. Exit
 """
@@ -41,6 +40,10 @@ Menu
     elif option == "6":
         print("\n--- Update Product ---")
         update_register(stock)
+
+    elif option == "7":
+        print("\n--- Export Stock ---")
+        export_stock(stock)
 
     elif option == "0":
         print("Exiting the system...")
