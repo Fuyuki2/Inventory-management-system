@@ -1,5 +1,6 @@
 from product import *
 
+# === Main menu loop ===
 while True:
     print(
         """
@@ -17,36 +18,12 @@ Menu
     )
     option = input("Choose an option: ")
 
-    if option == "1":
-        print("\n--- Register Product ---")
-        register(stock)
+    action = menu_actions.get(option)
 
-    elif option == "2":
-        print("\n--- Stock ---")
-        list_stock(stock)
-
-    elif option == "3":
-        print("\n--- Category ---")
-        list_category(stock)
-
-    elif option == "4":
-        print("\n--- Search Product ---")
-        search_product(stock)
-
-    elif option == "5":
-        print("\n--- Remove Product ---")
-        remove_product(stock)
-
-    elif option == "6":
-        print("\n--- Update Product ---")
-        update_register(stock)
-
-    elif option == "7":
-        print("\n--- Export Stock ---")
-        export_stock(stock)
-
-    elif option == "0":
-        print("Exiting the system...")
-        break
+    if action:
+        title, func = action
+        if title:
+            print(f"\n{title}")
+        func(stock)
     else:
         print("Invalid option! Please try again.")
